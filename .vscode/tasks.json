@@ -11,7 +11,7 @@
         {
             "label": "RunTest",
             "type": "shell",
-            "command": "cd C:\\Users\\Giovanni\\Desktop\\lovr; ./lovr.exe test"
+            "command": "cd C:\\Users\\Giovanni\\Desktop\\lovr; ./lovr.exe FaceStretcher64"
         }
     ]
 }

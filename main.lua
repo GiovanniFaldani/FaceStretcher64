@@ -1,8 +1,4 @@
 require "utils"
-function lovr.conf(t)
-  t.graphics.shaderCache = false
-end
-
 
 function lovr.load()
   -- Load a 3D model
