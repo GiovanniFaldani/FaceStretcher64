@@ -45,7 +45,7 @@ function lovr.draw(pass)
   --pass:setColor(1, 0, 0)
   --pass:sphere(.5, 1, -3, .5, lovr.timer.getTime())
 
-  pass:setShader(shader2)
+  --pass:setShader(shader2)
 
   for i, hand in ipairs(lovr.headset.getHands()) do
     local x, y, z = lovr.headset.getPosition(hand)
@@ -53,11 +53,13 @@ function lovr.draw(pass)
   end
 
   pass:setColor(drag.active and 0x80ee80 or 0xee8080)
-  pass:cube(box.position, box.size, quat(), 'line')
+  --pass:cube(box.position, box.size, quat(), 'line')
+  pass:draw(model, box.position, 0.005, -1, 1, 0, 0)
 
   for i, hand in ipairs(lovr.headset.getHands()) do
     pass:setColor(0xffffff)
-    pass:cube(mat4(lovr.headset.getPose(hand)):scale(.01))
+    --pass:cube(mat4(lovr.headset.getPose(hand)):scale(.01))
+    pass:draw(model, box.position, 0.005, -1, 1, 0, 0)
   end
 
 end
@@ -67,6 +69,7 @@ function lovr.update(dt)
   -- is the number of seconds elapsed since the last update.
   --
   -- You can use it to simulate physics or update game logic.
+  -- this loop checks every update whether the draggable object is being held or not
   for i, hand in ipairs(lovr.headset.getHands()) do
     if lovr.headset.wasPressed(hand, 'trigger') or lovr.system.isKeyDown("space") then
       local offset = box.position - vec3(lovr.headset.getPosition(hand))
@@ -80,6 +83,7 @@ function lovr.update(dt)
     end
   end
   
+  -- this condition checks for release of the dragging button (spacebar or controller trigger)
   if drag.active then
     local handPosition = vec3(lovr.headset.getPosition(drag.hand))
     box.position:set(handPosition + drag.offset)
