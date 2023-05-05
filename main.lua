@@ -1,7 +1,7 @@
 require "utils"
 
 box = {
-  position = lovr.math.newVec3(0, 1.5, -1),
+  position = lovr.math.newVec3(0, 1.5, -.5),
   size = .25
 }
 
@@ -52,7 +52,12 @@ function lovr.draw(pass)
     pass:sphere(x, y, z, .01)
   end
 
-  pass:setColor(drag.active and 0x80ee80 or 0xee8080)
+  if drag.active then
+    pass:send('ambientColor', {0,1,0})
+  else
+    pass:send('ambientColor', {1,0,0})
+  end
+  --pass:setColor(drag.active and 0x80ee80 or 0xee8080)
   --pass:cube(box.position, box.size, quat(), 'line')
   pass:draw(model, box.position, 0.005, -1, 1, 0, 0)
 
